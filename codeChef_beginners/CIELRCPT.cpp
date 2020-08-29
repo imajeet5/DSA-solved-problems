@@ -1,4 +1,4 @@
-//Ciel and Receipt
+//Ciel and Receipt #greedyAlgorithm
 #include <bits/stdc++.h>
 
 using namespace std;
