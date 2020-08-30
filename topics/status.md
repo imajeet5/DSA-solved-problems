@@ -15,5 +15,16 @@ Pending: Stacks, Queues, Trees, Binary Tree, Binary Search Tree, Hash Map, Prior
 
 1. CodeChef: Solving mostly codechef beginners problems.
 2. HackerRank: Will start solving hacker rank problem also section wise.
-3. HackerEarth: Has good classification of problem but interface is not good.
-4. Codeforces: Didn't tired yet.
+3. HackerEarth: Good for solving topic wise problems.
+4. A2Ojladder: Good for solving problems according to difficulty level.
+5. https://cses.fi/problemset/
+6. Codeforces: Didn't tired yet.
+
+## Target
+
+1. Solve problems on arrays from gfg
+2. solve the beginner problems from codechef.
+
+## RoadMap
+
+https://www.codechef.com/certification/data-structures-and-algorithms/prepare
