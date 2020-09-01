@@ -18,11 +18,7 @@ int32_t main()
         }
         int result = 1;
 
-        // for(auto i:mp)
-        // {
-        //        cout<<i.first<<" "<<i.second<<"\n";
-        // }
-
+     
         map<int, int> mp2;
 
         for (auto a : mp)
