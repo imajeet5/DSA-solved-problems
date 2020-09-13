@@ -11,7 +11,8 @@
 using namespace std;
 
 // Utility Function to print the elements of a collection
-void printElements(auto &C)
+template<typename T>
+void printElements(vector<T> &C)
 {
 
     for (auto e : C)
