@@ -27,21 +27,6 @@ void duplicateZerosNoTemp(vector<int> &arr)
             i++;
         }
     }
-    // int remove = temp.size() - arr.size();
-    // for (int j = 0; j < remove; j++)
-    // {
-    //     temp.pop_back();
-    // }
-
-    // arr = temp;
-
-    // for (auto i = temp.begin(); i != temp.end(); i++)
-    // {
-    //     if (*i == 0)
-    //     {
-    //         arr.insert(i, 0);
-    //     }
-    // }
 }
 
 void duplicateZerosTemp(vector<int> &arr)
