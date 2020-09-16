@@ -234,13 +234,14 @@ Node *sortList(Node *head)
         fast = fast->next->next;
     };
     // second link list
-    Node *n = slow->next;
+    Node *secondHalf = slow->next;
+    // this will break the connection of the head with the rest of the list
     slow->next = NULL;
     //3. sort each half
     head = sortList(head);
-    n = sortList(n);
+    secondHalf = sortList(secondHalf);
     //4. merge sorted halves
-    head = mergeTwoListRecursion(head, n);
+    head = mergeTwoListRecursion(head, secondHalf);
     return head;
 }
 

@@ -153,6 +153,203 @@ Node *insertAtIthPosition(Node *head, int data, int pos)
     return head;
 }
 
+Node *deleteithPosition(Node *head, int pos)
+{
+    if (pos < 0)
+    {
+        cout << "Out of range" << endl;
+        return head;
+    }
+
+    if (pos == 0)
+    {
+        Node *nextNode = head->next;
+        head->next = NULL;
+        delete head;
+        return nextNode;
+    }
+
+    Node *thead = head;
+    while ((pos - 1) && thead)
+    {
+        thead = thead->next;
+        pos--;
+    }
+    if (thead == NULL)
+    {
+        cout << "Out of range" << endl;
+        return head;
+    }
+    if (thead->next == NULL)
+    {
+        thead == NULL;
+        delete thead;
+        return head;
+    }
+    Node *removedNode = thead->next;
+    thead->next = thead->next->next;
+    removedNode->next = NULL;
+    delete removedNode;
+    return head;
+}
+
+bool isPresent(Node *head, int element)
+{
+    while (head)
+    {
+        if (head->data == element)
+        {
+            return true;
+        }
+        head = head->next;
+    }
+    return false;
+}
+
+int middleElement(Node *head)
+{
+    if (head->next == NULL)
+    {
+        return head->data;
+    }
+
+    Node *slow = head;
+    Node *fast = head->next;
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    if (fast)
+    {
+        return slow->next->data;
+    }
+    return slow->data;
+}
+
+Node *reverseLinkedList(Node *head)
+{
+    Node *currentNode = head;
+    Node *previousNode = NULL;
+
+    while (currentNode)
+    {
+        Node *nextNode = currentNode->next;
+        currentNode->next = previousNode;
+        previousNode = currentNode;
+        currentNode = nextNode;
+    }
+
+    return previousNode;
+}
+
+Node *mergeSortedLists(Node *list1, Node *list2)
+{
+    if (list1 == NULL)
+    {
+        return list2;
+    }
+    if (list2 == NULL)
+    {
+        return list1;
+    }
+
+    // Create finalHead and finalTail for the merged linked list
+    Node *finalHead = NULL;
+    Node *finalTail = NULL;
+
+    if (list1->data < list2->data)
+    {
+        finalHead = list1;
+        list1 = list1->next;
+    }
+    else
+    {
+        finalHead = list2;
+        list2 = list2->next;
+    }
+
+    finalTail = finalHead;
+
+    while (list1 && list2)
+    {
+        if (list1->data < list2->data)
+        {
+            finalTail->next = list1;
+            list1 = list1->next;
+        }
+        else
+        {
+            finalTail->next = list2;
+            list2 = list2->next;
+        }
+        finalTail = finalTail->next;
+    }
+    if (list1)
+    {
+        finalTail->next = list1;
+    }
+    else
+    {
+        finalTail->next = list2;
+    }
+
+    return finalHead;
+}
+
+Node *mergeSortedListUsingRecursion(Node *list1, Node *list2)
+{
+    if (list1 == NULL)
+    {
+        return list2;
+    }
+    if (list2 == NULL)
+    {
+        return list1;
+    }
+    Node *firstHead = NULL;
+    if (list1->data < list2->data)
+    {
+        firstHead = list1;
+        firstHead->next = mergeSortedLists(list1->next, list2);
+    }
+    else
+    {
+        firstHead = list2;
+        firstHead->next = mergeSortedLists(list1, list2->next);
+    }
+    return firstHead;
+}
+
+Node *sortList(Node *head)
+{
+    // if list is empty or list have only one element. List is already sorted
+    if (head == NULL || head->next == NULL)
+    {
+        return head;
+    }
+    Node *slow = head;
+    Node *fast = head->next;
+    while (fast && fast->next)
+    {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    // second half
+    Node *list2 = slow->next;
+    // break the connection of the first half with rest of the list
+    slow->next = NULL;
+
+    // sort each half
+    head = sortList(head);
+    list2 = sortList(list2);
+
+    // merging the sorted list
+    head = mergeSortedListUsingRecursion(head, list2);
+    return head;
+}
+
 int main(int argc, char const *argv[])
 {
 
@@ -172,37 +369,61 @@ int main(int argc, char const *argv[])
 
     Node *userLL1 = takeInputTail();
 
+    userLL1 = sortList(userLL1);
+
     printLinkedList(userLL1);
 
     int element, pos;
 
-    cout << "Enter element and position to insert " << endl;
-    cin >> element >> pos;
+    // cout << "Enter element and position to insert " << endl;
+    // cin >> element >> pos;
 
-    userLL1 = insertAtIthPosition(userLL1, element, pos);
+    // userLL1 = insertAtIthPosition(userLL1, element, pos);
 
-    cout << "length of list " << lengthOfLinkedList(userLL1) << endl;
+    // cout << "Enter position to delete " << endl;
 
-    for (size_t i = 0; i < lengthOfLinkedList(userLL1); i++)
-    {
-        printithNode(userLL1, i);
-    }
+    // cin >> pos;
+
+    // userLL1 = deleteithPosition(userLL1, pos);
+
+    // cout << "length of list " << lengthOfLinkedList(userLL1) << endl;
+
+    // for (size_t i = 0; i < lengthOfLinkedList(userLL1); i++)
+    // {
+    //     printithNode(userLL1, i);
+    // }
+
+    // cout << "Middle element of the node is " << middleElement(userLL1) << endl;
+
+    // Node *reversedList = reverseLinkedList(userLL1);
+
+    // cout << "Reversed List" << endl;
+    // printLinkedList(reversedList);
 
     Node *userLL2 = takeInputHead();
+    // Node *userLL2 = takeInputTail();
+    printLinkedList(userLL2);
+    userLL2 = sortList(userLL2);
 
     printLinkedList(userLL2);
 
-    cout << "Enter element and position to insert " << endl;
-    cin >> element >> pos;
+    // cout << "Enter element and position to insert " << endl;
+    // cin >> element >> pos;
 
-    userLL2 = insertAtIthPosition(userLL2, element, pos);
+    // userLL2 = insertAtIthPosition(userLL2, element, pos);
 
-    cout << "length of list " << lengthOfLinkedList(userLL2) << endl;
+    // cout << "length of list " << lengthOfLinkedList(userLL2) << endl;
 
-    for (size_t i = 0; i < lengthOfLinkedList(userLL2); i++)
-    {
-        printithNode(userLL2, i);
-    }
+    // for (size_t i = 0; i < lengthOfLinkedList(userLL2); i++)
+    // {
+    //     printithNode(userLL2, i);
+    // }
+
+    // cout << "Middle element of the node is " << middleElement(userLL2) << endl;
+
+    Node *mergedList = mergeSortedListUsingRecursion(userLL1, userLL2);
+
+    printLinkedList(mergedList);
 
     return 0;
 }
