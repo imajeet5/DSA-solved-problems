@@ -35,3 +35,34 @@
 - merge sort the linked list
 
 ### Doubly linked list
+
+- insertFirst
+- insertLast
+- printDLL
+- insert at ith position
+- delete at ith position
+
+## Queue
+
+- Operation
+  - get size
+  - is empty
+  - push
+  - pop
+  - front
+- Implementing fix capacity queue using arrays
+- Implementing dynamic capacity queue using array
+- Implementing queue using linked list
+- reversing a queue
+
+## Stacks
+
+- Operations
+  - get size
+  - is empty
+  - push
+  - pop
+  - top
+- Implementing fix capacity queue using arrays
+- Implementing dynamic capacity queue using array
+- Implementing queue using linked list

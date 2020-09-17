@@ -365,20 +365,20 @@ int main(int argc, char const *argv[])
     }
 
     printLinkedList(head);
-    printLinkedList(head);
+    // printLinkedList(head);
 
     Node *userLL1 = takeInputTail();
 
-    userLL1 = sortList(userLL1);
+    // userLL1 = sortList(userLL1);
 
     printLinkedList(userLL1);
 
     int element, pos;
 
-    // cout << "Enter element and position to insert " << endl;
-    // cin >> element >> pos;
+    cout << "Enter element and position to insert " << endl;
+    cin >> element >> pos;
 
-    // userLL1 = insertAtIthPosition(userLL1, element, pos);
+    userLL1 = insertAtIthPosition(userLL1, element, pos);
 
     // cout << "Enter position to delete " << endl;
 
@@ -388,10 +388,10 @@ int main(int argc, char const *argv[])
 
     // cout << "length of list " << lengthOfLinkedList(userLL1) << endl;
 
-    // for (size_t i = 0; i < lengthOfLinkedList(userLL1); i++)
-    // {
-    //     printithNode(userLL1, i);
-    // }
+    for (size_t i = 0; i < lengthOfLinkedList(userLL1); i++)
+    {
+        printithNode(userLL1, i);
+    }
 
     // cout << "Middle element of the node is " << middleElement(userLL1) << endl;
 
@@ -400,12 +400,12 @@ int main(int argc, char const *argv[])
     // cout << "Reversed List" << endl;
     // printLinkedList(reversedList);
 
-    Node *userLL2 = takeInputHead();
+    // Node *userLL2 = takeInputHead();
     // Node *userLL2 = takeInputTail();
-    printLinkedList(userLL2);
-    userLL2 = sortList(userLL2);
+    // printLinkedList(userLL2);
+    // userLL2 = sortList(userLL2);
 
-    printLinkedList(userLL2);
+    // printLinkedList(userLL2);
 
     // cout << "Enter element and position to insert " << endl;
     // cin >> element >> pos;
@@ -421,9 +421,9 @@ int main(int argc, char const *argv[])
 
     // cout << "Middle element of the node is " << middleElement(userLL2) << endl;
 
-    Node *mergedList = mergeSortedListUsingRecursion(userLL1, userLL2);
+    // Node *mergedList = mergeSortedListUsingRecursion(userLL1, userLL2);
 
-    printLinkedList(mergedList);
+    // printLinkedList(mergedList);
 
     return 0;
 }
