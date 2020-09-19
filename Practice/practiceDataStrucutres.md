@@ -10,8 +10,6 @@
   - Linear Search \*
   - Binary Search \*
 
-
-
 ## Linked List
 
 - Creating Linked List \*
@@ -61,3 +59,10 @@
 - Implementing fix capacity queue using arrays
 - Implementing dynamic capacity queue using array
 - Implementing queue using linked list
+
+## Generic Tree
+
+- Create TreeNode class
+- Print tree
+- user-input tree data using recursion
+- user-input level wise.

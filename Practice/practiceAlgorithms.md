@@ -1,3 +1,5 @@
+This contain standard problem on various algorithm to be practices from time to time
+
 ## Arrays
 
 - Rotate array clockwise and anticlockwise
@@ -10,3 +12,7 @@
   - Quick sort
 - Merge two sorted arrays
 - Check if array is sorted
+
+## Recursion
+
+- Tower of hanoi
