@@ -69,8 +69,19 @@
 - print tree level wise
 - count number of node using iteration and recursion
 - height of the tree
-- printatdepth
+- print at depth
 - totalLeafNodes
 - pre order traversal
 - post order traversal
 - delete tree
+
+## Binary Tree
+
+- Creating Binary Tree Class
+- Print recursive
+- Take input Recursive
+- Take input level wise
+- Print tree level wise
+- level order traversal
+- count Nodes
+- In-order Traversal

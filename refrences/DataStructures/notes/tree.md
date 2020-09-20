@@ -13,3 +13,11 @@ This is another way to printing a tree. First print root then print it's childre
 #### Post-Order Traversal
 
 This is opposite of the pre order traversal, it say first you print the children then you print the node/root.
+
+## Binary Tree
+
+A binary tree is a tree, in which every node will have maximum two children's.
+
+#### In-order Traversal
+
+First you visit the left sub tree, then the current root node data and then visit the right sub-tree. **L->D->N**
