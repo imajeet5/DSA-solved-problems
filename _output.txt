@@ -1,0 +1,7 @@
+Enter root data
+Enter number of childrens of -1232159488
+
+-1232159488: 
+Number of nodes are 1
+Height of tree 1
+

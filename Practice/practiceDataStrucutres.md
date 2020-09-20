@@ -66,3 +66,11 @@
 - Print tree
 - user-input tree data using recursion
 - user-input level wise.
+- print tree level wise
+- count number of node using iteration and recursion
+- height of the tree
+- printatdepth
+- totalLeafNodes
+- pre order traversal
+- post order traversal
+- delete tree
