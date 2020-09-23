@@ -20,4 +20,12 @@ A binary tree is a tree, in which every node will have maximum two children's.
 
 #### In-order Traversal
 
-First you visit the left sub tree, then the current root node data and then visit the right sub-tree. **L->D->N**
+**L->D->N** First you visit the left sub tree, then the current root node data and then visit the right sub-tree.
+
+#### Pre-Order Traversal
+
+**D->L->R** First we visit the data then the left sub-tree and then the right sub-tree. This is a top down approach. We are visiting from top to down.
+
+#### Post-Order Traversal
+
+**L->R->D** First we visit the left sub-tree and then the right sub-tree and finally data. This is bottom up approach. 

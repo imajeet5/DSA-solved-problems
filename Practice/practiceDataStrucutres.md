@@ -37,28 +37,28 @@
 
 ## Queue
 
-- Operation
+- Operation \*
   - get size
   - is empty
   - push
   - pop
   - front
-- Implementing fix capacity queue using arrays
-- Implementing dynamic capacity queue using array
-- Implementing queue using linked list
-- reversing a queue
+- Implementing fix capacity queue using arrays \*
+- Implementing dynamic capacity queue using array \*
+- Implementing queue using linked list \*
+- reversing a queue \*
 
 ## Stacks
 
-- Operations
+- Operations \*
   - get size
   - is empty
   - push
   - pop
   - top
-- Implementing fix capacity queue using arrays
-- Implementing dynamic capacity queue using array
-- Implementing queue using linked list
+- Implementing fix capacity queue using arrays \*
+- Implementing dynamic capacity queue using array \*
+- Implementing queue using linked list \*
 
 ## Generic Tree
 
@@ -85,3 +85,12 @@
 - level order traversal
 - count Nodes
 - In-order Traversal
+- preOrder Traversal
+- postOrder Traversal
+- Height of Binary tree
+- Is binary tree symmetric
+- is a given node present
+- get Minimum/Maximum value two methods
+- Build Tree using inorder and post/pre-order traversal
+- diameter of a binary tree
+- diameter of binary tree optimized
