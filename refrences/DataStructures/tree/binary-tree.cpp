@@ -14,6 +14,7 @@ public:
     {
         this->data = data;
         left = NULL;
+        right = NULL;
     }
     ~BTNode()
     {
@@ -610,3 +611,16 @@ int main(int argc, char const *argv[])
 
     return 0;
 }
+
+/*
+input 1:
+1
+2 3 
+4 5 6 7
+-1 -1 -1 -1 8 9 -1 -1
+-1 -1 -1 -1
+
+inputs 2:
+
+
+*/

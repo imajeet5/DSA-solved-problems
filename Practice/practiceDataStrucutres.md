@@ -94,3 +94,16 @@
 - Build Tree using inorder and post/pre-order traversal
 - diameter of a binary tree
 - diameter of binary tree optimized
+
+## Binary Search Tree
+
+- BST class implementation
+  - insert
+  - delete
+  - search
+  - print Tree
+- Search value in BST using recursion and iterative solution
+- Find min and max value in BST
+- rangeSumBST
+- check if the BST is sorted
+- Sorted array to BST

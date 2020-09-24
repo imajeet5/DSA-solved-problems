@@ -28,4 +28,13 @@ A binary tree is a tree, in which every node will have maximum two children's.
 
 #### Post-Order Traversal
 
-**L->R->D** First we visit the left sub-tree and then the right sub-tree and finally data. This is bottom up approach. 
+**L->R->D** First we visit the left sub-tree and then the right sub-tree and finally data. This is bottom up approach.
+
+## Binary Search Tree
+
+There are two main properties of BST, for every node, N:-
+
+1. Everything in N's left sub-tree is less then N's data.
+2. Everything in N's right sub-tree is greater then N's data.
+
+- Inorder traversal of the BST is sorted
