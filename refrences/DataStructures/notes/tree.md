@@ -8,11 +8,11 @@
 
 #### Pre-Order Traversal
 
-This is another way to printing a tree. First print root then print it's children. Printing node and it's children's recursively.
+This is another way to printing a tree. **First print root then print it's children**. Printing node and it's children's recursively.
 
 #### Post-Order Traversal
 
-This is opposite of the pre order traversal, it say first you print the children then you print the node/root.
+This is opposite of the pre order traversal, it say **first you print the children then you print the node/root**.
 
 ## Binary Tree
 

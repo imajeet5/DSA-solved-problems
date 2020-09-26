@@ -62,34 +62,34 @@
 
 ## Generic Tree
 
-- Create TreeNode class
-- Print tree
-- user-input tree data using recursion
-- user-input level wise.
-- print tree level wise
-- count number of node using iteration and recursion
-- height of the tree
-- print at depth
-- totalLeafNodes
-- pre order traversal
-- post order traversal
-- delete tree
+- Create TreeNode class \*
+- Print tree \*
+- user-input tree data using recursion \*
+- user-input level wise. \*
+- print tree level wise \*
+- count number of node using iteration and recursion \*
+- height of the tree \*
+- print at depth \*
+- totalLeafNodes \*
+- pre order traversal \*
+- post order traversal \*
+- delete tree \*
 
 ## Binary Tree
 
-- Creating Binary Tree Class
-- Print recursive
-- Take input Recursive
-- Take input level wise
-- Print tree level wise
-- level order traversal
-- count Nodes
-- In-order Traversal
-- preOrder Traversal
-- postOrder Traversal
-- Height of Binary tree
-- Is binary tree symmetric
-- is a given node present
+- Creating Binary Tree Class \*
+- Print recursive \*
+- Take input Recursive \*
+- Take input level wise \*
+- Print tree level wise \*
+- Printing level order traversal. \*
+- count Nodes \*
+- In-order Traversal \*
+- preOrder Traversal \*
+- postOrder Traversal \*
+- Height of Binary tree \*
+- Is binary tree symmetric \*
+- is a given node present \*
 - get Minimum/Maximum value two methods
 - Build Tree using inorder and post/pre-order traversal
 - diameter of a binary tree
