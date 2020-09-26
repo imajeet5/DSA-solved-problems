@@ -95,6 +95,62 @@ private:
         return node;
     }
 
+    BTNode<int> *deleteData(BTNode<int> *node, int data)
+    {
+        if (node == NULL)
+        {
+            return NULL;
+        }
+
+        if (data > node->data)
+        {
+            node->right = deleteData(node->right, data);
+        }
+        else if (data < node->data)
+        {
+            node->left = deleteData(node->left, data);
+        }
+        else
+        {
+            // when node->data == data
+
+            if (node->left == NULL && node->right == NULL)
+            {
+                delete node;
+                return NULL;
+            }
+            else if (node->right == NULL)
+            {
+                BTNode<int> *temp = node->left;
+                node->left = NULL;
+                delete node;
+                return temp;
+            }
+            else if (node->left == NULL)
+            {
+                BTNode<int> *temp = node->right;
+                node->right = NULL;
+                delete node;
+                return temp;
+            }
+            else
+            {
+                BTNode<int> *minNode = node->right;
+                // get the minimum Node at the right side of the tree
+                // minimum node is present at the left most side of the right hand side tree
+                while (minNode->left)
+                {
+                    minNode = minNode->left;
+                }
+                int rightMin = minNode->data;
+                // replace the current node with the update value on the right side
+                node->data = rightMin;
+                // update the right side of the node with the updated node from the deleteData
+                node->right = deleteData(node->right, rightMin);
+            }
+        }
+    };
+
 public:
     BST()
     {
@@ -108,6 +164,7 @@ public:
 
     void deleteData(int data)
     {
+        root = deleteData(root, data);
     }
 
     void insertData(int data)
@@ -138,6 +195,18 @@ int main(int argc, char const *argv[])
 
     b.print();
 
-    cout << "has data " << b.hasData(15) << endl;
+    // cout << "has data " << b.hasData(15) << endl;
+
+    cout << "After deleting " << endl;
+
+    b.deleteData(10);
+    b.print();
+     cout << "After deleting " << endl;
+    b.deleteData(5);
+    b.print();
+     cout << "After deleting " << endl;
+    b.deleteData(50);
+    b.print();
+
     return 0;
 }
