@@ -98,7 +98,7 @@
 
 ## Binary Search Tree
 
-- BST class implementation
+- BST class implementation \*
   - insert
   - delete
   - search
@@ -109,3 +109,4 @@
 - check if the BST is sorted \*
 - check if BST is valid \*
 - Sorted array to BST \*
+- Convert BST to sorted Linked List

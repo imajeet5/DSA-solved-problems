@@ -38,3 +38,13 @@ There are two main properties of BST, for every node, N:-
 2. Everything in N's right sub-tree is greater then N's data.
 
 - Inorder traversal of the BST is sorted
+- In BST insert, delete and search operations have time complexity of O(n), here h === n
+
+## Balanced BST
+
+- For every node |lh - rh| <= 1 follows this property.
+- Balanced BST has one of the property, that is height `h === O(logN)`.
+- According to our implementation out BST will be balance or not will depend on the order of input, but there are some BST that are always balanced. These BST will not depend on the input order. They are:
+  1. **AVL Tree**
+  2. **Red-Black Tree**
+  3. **2-4 Tree**

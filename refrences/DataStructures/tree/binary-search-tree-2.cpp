@@ -25,6 +25,13 @@ public:
     }
 };
 
+class Pair
+{
+public:
+    BTNode<int> *head;
+    BTNode<int> *tail;
+};
+
 class BST
 {
 private:
@@ -151,6 +158,54 @@ private:
         }
     };
 
+    Pair convertToList(BTNode<int> *node)
+    {
+        if (node == NULL)
+        {
+            Pair p;
+            p.head = NULL;
+            p.tail = NULL;
+            return p;
+        }
+        if (node->left == NULL && node->right == NULL)
+        {
+            Pair p;
+            p.head = node;
+            p.tail = node;
+            return p;
+        }
+        else if (node->left != NULL && node->right == NULL)
+        {
+            // for the case where right part is null and the left part of the tree is not null
+            Pair leftLL = convertToList(node->left);
+            leftLL.tail->right = node;
+            Pair p;
+            p.head = leftLL.head;
+            p.tail = node;
+            return p;
+        }
+        else if (node->left == NULL && node->right != NULL)
+        {
+            Pair rightLL = convertToList(node->right);
+            node->right = rightLL.head;
+            Pair p;
+            p.head = node;
+            p.tail = rightLL.tail;
+            return p;
+        }
+        else
+        {
+            Pair leftLL = convertToList(node->left);
+            Pair rightLL = convertToList(node->right);
+            leftLL.tail->right = node;
+            node->right = rightLL.head;
+            Pair p;
+            p.head = leftLL.head;
+            p.tail = rightLL.tail;
+            return p;
+        }
+    }
+
 public:
     BST()
     {
@@ -181,6 +236,18 @@ public:
     {
         printTree(root);
     }
+    BTNode<int> *convertToList()
+    {
+        Pair p = convertToList(root);
+        BTNode<int> *temp = p.head;
+        while (temp != NULL)
+        {
+            temp->left = NULL;
+            temp = temp->right;
+        }
+
+        return p.head;
+    }
 };
 
 int main(int argc, char const *argv[])
@@ -197,15 +264,25 @@ int main(int argc, char const *argv[])
 
     // cout << "has data " << b.hasData(15) << endl;
 
-    cout << "After deleting " << endl;
+    // cout << "After deleting " << endl;
 
-    b.deleteData(10);
-    b.print();
-     cout << "After deleting " << endl;
-    b.deleteData(5);
-    b.print();
-     cout << "After deleting " << endl;
-    b.deleteData(50);
+    // b.deleteData(10);
+    // b.print();
+    // cout << "After deleting " << endl;
+    // b.deleteData(5);
+    // b.print();
+    // cout << "After deleting " << endl;
+    // b.deleteData(50);
+    // b.print();
+
+    BTNode<int> *head = b.convertToList();
+    BTNode<int> *temp = head;
+    while (temp != NULL)
+    {
+        cout << temp->data << "->";
+        temp = temp->right;
+    }
+    cout << endl;
     b.print();
 
     return 0;
