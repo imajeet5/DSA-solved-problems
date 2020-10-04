@@ -479,7 +479,7 @@ int diameterOfTree(BTNode<int> *root)
 // in this approach instead of calculating height and diameter severalty, we are going to calculate them combine
 // time complexity has been reduced to O(1) as now it is visiting, every Node only once
 
-pair<int, int> heightDiameter(BTNode<int> *root)
+pair<int, int> getHeightDiameter(BTNode<int> *root)
 {
     if (root == NULL)
     {
@@ -489,8 +489,8 @@ pair<int, int> heightDiameter(BTNode<int> *root)
         return p;
     }
 
-    pair<int, int> leftAns = heightDiameter(root->left);
-    pair<int, int> rightAns = heightDiameter(root->right);
+    pair<int, int> leftAns = getHeightDiameter(root->left);
+    pair<int, int> rightAns = getHeightDiameter(root->right);
 
     int leftheight = leftAns.first;
     int leftDiameter = leftAns.second;
@@ -512,7 +512,7 @@ pair<int, int> heightDiameter(BTNode<int> *root)
 int diameterOfTreeOptimized(BTNode<int> *root)
 {
 
-    pair<int, int> p = heightDiameter(root);
+    pair<int, int> p = getHeightDiameter(root);
 
     return p.second;
 }
@@ -582,6 +582,9 @@ int main(int argc, char const *argv[])
     cout << "Number of leaf nodes are " << getNumberOfLeafNodes(root) << endl;
 
     cout << "diameter of the tree is " << diameterOfTree(root) << endl;
+
+    pair<int, int> p = getHeightDiameter(root);
+    cout << "Diameter of tree is " << p.second << " Height of the tree is " << p.first << endl;
 
     vector<int> preorder{1, 2, 4, 3, 5, 7, 8, 6};
     vector<int> inorder{4, 2, 1, 7, 5, 8, 3, 6};

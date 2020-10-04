@@ -302,9 +302,70 @@ BTNode *buildTreePreOrderInorder(vector<int> &preorder, vector<int> &inorder)
     int n = inorder.size();
 }
 
+int diameterOfTree1(BTNode *root)
+{
+    if (root == NULL)
+        return 0;
+
+    int opt1 = heightOfTree(root->left) + heightOfTree(root->right);
+    int opt2 = diameterOfTree1(root->left);
+    int opt3 = diameterOfTree1(root->right);
+
+    return max(opt1, max(opt1, opt2));
+}
+
+pair<int, int> getHeightDiameter(BTNode *root)
+{
+    if (root == NULL)
+    {
+        pair<int, int> p(0, 0);
+
+        return p;
+    }
+
+    pair<int, int> leftHD = getHeightDiameter(root->left);
+    pair<int, int> rightHD = getHeightDiameter(root->right);
+
+    int leftHeight = leftHD.first;
+    int rightHeight = rightHD.first;
+
+    int leftDia = leftHD.second;
+    int rightDia = rightHD.second;
+
+    int diameter = max(leftHeight + rightHeight, max(leftDia, rightDia));
+
+    int height = max(leftHeight, rightHeight) + 1;
+    pair<int, int> p(height, diameter);
+    return p;
+}
+
+bool getPath(BTNode *root, int val, vector<int> &ans)
+{
+    if (root == NULL)
+        return false;
+
+    ans.push_back(root->data);
+    if (root->data == val)
+        return true;
+
+    bool isPresentLeft = getPath(root->left, val, ans);
+
+    if (isPresentLeft)
+        return true;
+
+    bool isPresentRight = getPath(root->right, val, ans);
+
+    if (isPresentRight)
+        return true;
+
+    ans.pop_back();
+
+    return false;
+}
+
 int main(int argc, char const *argv[])
 {
-    // freopen("_input.txt", "r", stdin);
+    freopen("_input.txt", "r", stdin);
 
     // BTNode *root = new BTNode(1);
     // BTNode *n2 = new BTNode(3);
@@ -353,6 +414,18 @@ int main(int argc, char const *argv[])
     cout << "value present " << isNodePresent(root, 19) << endl;
 
     cout << "Minimun value is " << getMinValue(root) << endl;
+
+    cout << "Diameter of the tree is " << diameterOfTree1(root) << endl;
+    pair<int, int> p = getHeightDiameter(root);
+
+    cout << "Diameter of tree is " << p.second << " Height of tree is " << p.first << endl;
+
+    vector<int> path;
+    getPath(root, 6, path);
+    for (int i = 0; i < path.size(); i++)
+    {
+        cout << path.at(i) << " ";
+    }
 
     return 0;
 }

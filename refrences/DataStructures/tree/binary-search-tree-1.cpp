@@ -212,7 +212,7 @@ BSTNode<int> *sortedArrToBST(vector<int> &arr, int s, int e)
     }
 
     int mid = (s + e) / 2;
-    
+
     int rootData = arr.at(mid);
 
     BSTNode<int> *root = new BSTNode<int>(rootData);
@@ -224,7 +224,7 @@ BSTNode<int> *sortedArrToBST(vector<int> &arr, int s, int e)
 
 int main(int argc, char const *argv[])
 {
-     freopen("_input.txt", "r", stdin);
+    freopen("_input.txt", "r", stdin);
 
     BSTNode<int> *root = takeInputLevelWise();
 
@@ -237,7 +237,7 @@ int main(int argc, char const *argv[])
 
     printTreeLevelWise(root);
 
-    vector<int> sortedArr{1, 2, 3, 4, 5, 6, 7, 8,9, 10, 11, 12};
+    vector<int> sortedArr{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
 
     BSTNode<int> *tree1 = sortedArrToBST(sortedArr, 0, sortedArr.size() - 1);
 

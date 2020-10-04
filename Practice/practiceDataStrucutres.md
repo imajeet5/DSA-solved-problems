@@ -92,8 +92,9 @@
 - is a given node present \*
 - get Minimum/Maximum value two methods
 - Build Tree using inorder and post/pre-order traversal
-- diameter of a binary tree
-- diameter of binary tree optimized
+- diameter of a binary tree \*
+- diameter of binary tree optimized \*
+- getPath \*
 
 ## Binary Search Tree
 
@@ -102,8 +103,9 @@
   - delete
   - search
   - print Tree
-- Search value in BST using recursion and iterative solution
-- Find min and max value in BST
-- rangeSumBST
-- check if the BST is sorted
-- Sorted array to BST
+- Search value in BST using recursion and iterative solution \*
+- Find min and max value in BST \*
+- rangeSumBST \*
+- check if the BST is sorted \*
+- check if BST is valid \*
+- Sorted array to BST \*
