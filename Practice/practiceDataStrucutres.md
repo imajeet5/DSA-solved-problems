@@ -110,3 +110,11 @@
 - check if BST is valid \*
 - Sorted array to BST \*
 - Convert BST to sorted Linked List
+
+## Hash Map
+
+- Implementation using Close Addressing
+
+## Priority Queue
+
+- Implementing using Heaps
