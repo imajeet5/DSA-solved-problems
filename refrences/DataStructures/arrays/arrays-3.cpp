@@ -23,7 +23,8 @@ public:
         n = 0;
         capacity = c;
     }
-
+    
+    // this is copy constructor
     DynamicArray(DynamicArray const &d)
     {
         this->n = d.n;
