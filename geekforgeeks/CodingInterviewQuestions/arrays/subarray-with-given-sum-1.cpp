@@ -8,7 +8,7 @@ using namespace std;
 
 typedef long long int ll;
 
-void printSubArr(int *arr, int N, int S)
+void printSubArr1(int *arr, int N, int S)
 {
     int currSum;
     for (size_t i = 0; i < N; i++)
@@ -31,6 +31,30 @@ void printSubArr(int *arr, int N, int S)
     }
     cout << -1 << endl;
 }
+void printSubArr2(int *arr, int N, int S)
+{
+    // starte index of the sum is 'startIndex' and end index is 'i'
+    int currSum = arr[0], startIndex = 0, i;
+    for (int i = 1; i <= N; i++)
+    {
+        // start removing the element until the currSum is greater then S and startIndex < i - 1 otherwise there will be no element left
+        while (currSum > S && startIndex < i - 1)
+        {
+            currSum -= arr[startIndex];
+            startIndex++;
+        }
+        if (currSum == S)
+        {
+            cout << startIndex + 1 << " " << i << endl;
+            return;
+        }
+
+        if (i < N)
+            currSum += arr[i];
+    }
+    cout << -1 << endl;
+    return;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -46,7 +70,15 @@ int main(int argc, char const *argv[])
         {
             cin >> arr[i];
         }
-        printSubArr(arr, N, S);
+        printSubArr2(arr, N, S);
     }
     return 0;
 }
+
+/*
+2
+5 12
+1 2 3 7 5
+10 15
+1 2 3 4 5 6 7 8 9 10
+*/
