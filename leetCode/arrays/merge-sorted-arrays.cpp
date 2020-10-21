@@ -1,5 +1,7 @@
 #include <bits/stdc++.h>
 
+// merge two sorted arrays
+
 using namespace std;
 
 void printVec(std::vector<int> const &a)

@@ -6,14 +6,32 @@ using namespace std;
 
 void missingNumbers(int arr[], int n)
 {
-    for (int i = 0; i < n; i++)
+    sort(arr, arr + n);
+    for (int i = 0; i <= n; i++)
     {
-        if (arr[i] != i)
+        if (arr[i] != (i + 1))
         {
-            cout << i << endl;
+            cout << i + 1 << endl;
             return;
         }
     }
+}
+
+void missingNumbers2(int arr[], int n)
+{
+    // For xor of all the elements in array
+    int x1 = arr[0];
+
+    // For xor of all the elements from 1 to n+1
+    int x2 = 1;
+
+    for (int i = 1; i < n; i++)
+        x1 = x1 ^ arr[i];
+
+    for (int i = 2; i <= n + 1; i++)
+        x2 = x2 ^ i;
+
+    cout << (x1 ^ x2) << endl;
 }
 
 int main(int argc, char const *argv[])
@@ -23,14 +41,14 @@ int main(int argc, char const *argv[])
     cin >> t;
     while (t--)
     {
-        int N, S;
-        cin >> N >> S;
-        int arr[N];
-        for (size_t i = 0; i < N; i++)
+        int N;
+        cin >> N;
+        int arr[N - 1];
+        for (size_t i = 0; i < N - 1; i++)
         {
             cin >> arr[i];
         }
-        missingNumbers(arr, N);
+        missingNumbers2(arr, N - 1);
     }
     return 0;
 }
