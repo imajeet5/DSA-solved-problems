@@ -87,11 +87,11 @@ public:
 
         // Case 2: 0, x, x
         for (int i = 1; i <= max_val; i++)
-            ans += freq[0] * freq[i] * (freq[i] - 1) / 2;
+            ans += freq[0] * (freq[i] * (freq[i] - 1) / 2);
 
         // Case 3: x, x, 2*x
         for (int i = 1; 2 * i <= max_val; i++)
-            ans += freq[i] * (freq[i] - 1) / 2 * freq[2 * i];
+            ans += (freq[i] * (freq[i] - 1) / 2 )* freq[2 * i];
 
         // Case 4: x, y, x + y
         // iterate through all pairs (x, y)
