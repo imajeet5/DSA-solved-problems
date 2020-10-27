@@ -25,7 +25,38 @@ void printSubString(string str, int s, int e)
     }
 }
 
-void longestPalindrome(string &str)
+bool isPalindrome(string s)
+{
+    string rev = s;
+    reverse(rev.begin(), rev.end());
+    return s == rev;
+}
+
+// using brute force approach
+void longestPalindrome1(string &str)
+{
+
+    int n = str.length();
+    int mx_len = 0;
+    string best_s = "";
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = i; j < n; j++)
+        {
+            int len = j - i + 1;
+            string substr = str.substr(i, len);
+            if (isPalindrome(substr) && len > mx_len)
+            {
+                mx_len = len;
+                best_s = substr;
+            }
+        }
+    }
+    cout << best_s;
+}
+
+// using dynamic programming
+void longestPalindrome2(string &str)
 {
     int n = str.length();
     int s = 0;
@@ -65,13 +96,12 @@ void longestPalindrome(string &str)
     printdp(dp);
     printSubString(str, s, e);
     cout << endl;
-    
 }
 
 // Driver Code
 int main()
 {
-    string str = "qrrc";
-    longestPalindrome(str);
+    string str = "forgeeksskeegfor";
+    longestPalindrome1(str);
     return 0;
 }
