@@ -50,6 +50,34 @@ char fNRChar(string s)
     return '0';
 }
 
+void fNRChar2(string s)
+{
+    queue<char> q;
+    unordered_map<char, int> freq;
+    string ans;
+    for (auto c : s)
+    {
+        q.push(c);
+        freq[c]++;
+        if (freq[q.front()] == 1)
+        {
+            cout << q.front() << " ";
+        }
+        else
+        {
+            while (freq[q.front()] != 1 && !q.empty())
+            {
+                q.pop();
+            }
+            if (!q.empty())
+                cout << q.front() << " ";
+            else
+                cout << -1 << " ";
+        }
+    }
+    cout << endl;
+}
+
 int main(int argc, char const *argv[])
 {
     // freopen("_input.txt", "r", stdin);
@@ -65,16 +93,17 @@ int main(int argc, char const *argv[])
             char c;
             cin >> c;
             s += c;
-            char ans = fNRChar(s);
-            if (ans != '0')
-            {
-                cout << ans << " ";
-            }
-            else
-            {
-                cout << -1 << " ";
-            }
+            // char ans = fNRChar(s);
+            // if (ans != '0')
+            // {
+            //     cout << ans << " ";
+            // }
+            // else
+            // {
+            //     cout << -1 << " ";
+            // }
         }
+        fNRChar2(s);
     }
     return 0;
 }
