@@ -1,3 +1,4 @@
+
 // { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
@@ -127,32 +128,38 @@ struct Node
 };
  */
 
-// this is DFS approach
-// with printing only the first one
-vector<int> leftViewUtil(Node *root, int level, int *max_level, vector<int> &ans)
-{
-    // Base Case
-    if (root == NULL)
-        ans;
-
-    // If this is the first node of its level
-    if (*max_level < level)
-    {
-        // cout << root->data << "\t";
-        ans.push_back(root->data);
-        *max_level = level;
-    }
-
-    // Recur for left and right subtrees
-    leftViewUtil(root->left, level + 1, max_level, ans);
-    leftViewUtil(root->right, level + 1, max_level, ans);
-}
-
 // A wrapper over leftViewUtil()
 vector<int> leftView(Node *root)
 {
-    int max_level = 0;
-    vector<int> ans;
-    return leftViewUtil(root, 1, &max_level, ans);
-}
 
+    vector<int> ans;
+    queue<Node *> q;
+    if (root == NULL)
+    {
+        return ans;
+    }
+    q.push(root);
+    while (!q.empty())
+    {
+        int size = q.size();
+
+        for (int i = 0; i < size; i++)
+        {
+            Node *curr = q.front();
+            q.pop();
+            if (i == size - 1)
+            {
+                ans.push_back(curr->data);
+            }
+            if (curr->left)
+            {
+                q.push(curr->left);
+            }
+            if (curr->right)
+            {
+                q.push(curr->right);
+            }
+        }
+    }
+    return ans;
+}

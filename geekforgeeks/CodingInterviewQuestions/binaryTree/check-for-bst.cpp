@@ -1,6 +1,7 @@
 // { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
+#define MAX_HEIGHT 100000
 
 // Tree Node
 struct Node
@@ -8,20 +9,16 @@ struct Node
     int data;
     Node *left;
     Node *right;
+
+    Node(int val)
+    {
+        data = val;
+        left = right = NULL;
+    }
 };
 
-vector<int> leftView(struct Node *root);
-
-// Utility function to create a new Tree Node
-Node *newNode(int val)
-{
-    Node *temp = new Node;
-    temp->data = val;
-    temp->left = NULL;
-    temp->right = NULL;
-
-    return temp;
-}
+bool isBST(struct Node *node);
+int isBSTUtil(struct Node *node, int min, int max);
 
 // Function to Build Tree
 Node *buildTree(string str)
@@ -38,11 +35,8 @@ Node *buildTree(string str)
     for (string str; iss >> str;)
         ip.push_back(str);
 
-    // for(string i:ip)
-    //     cout<<i<<" ";
-    // cout<<endl;
     // Create the root of the tree
-    Node *root = newNode(stoi(ip[0]));
+    Node *root = new Node(stoi(ip[0]));
 
     // Push the root to the queue
     queue<Node *> queue;
@@ -65,7 +59,7 @@ Node *buildTree(string str)
         {
 
             // Create the left child for the current node
-            currNode->left = newNode(stoi(currVal));
+            currNode->left = new Node(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->left);
@@ -82,7 +76,7 @@ Node *buildTree(string str)
         {
 
             // Create the right child for the current node
-            currNode->right = newNode(stoi(currVal));
+            currNode->right = new Node(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->right);
@@ -93,66 +87,80 @@ Node *buildTree(string str)
     return root;
 }
 
+void inorder(Node *root, vector<int> &v)
+{
+    if (root == NULL)
+        return;
+
+    inorder(root->left, v);
+    v.push_back(root->data);
+    inorder(root->right, v);
+}
+
 int main()
 {
+
     int t;
-    scanf("%d ", &t);
+    string tc;
+    getline(cin, tc);
+    t = stoi(tc);
     while (t--)
     {
         string s;
         getline(cin, s);
         Node *root = buildTree(s);
-        vector<int> vec = leftView(root);
-        for (int x : vec)
-            cout << x << " ";
-        cout << endl;
+        cout << isBST(root) << endl;
     }
     return 0;
 }
 
 // } Driver Code Ends
 
-/* A binary tree node
-
-struct Node
-{
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child  
+struct Node {
     int data;
-    struct Node* left;
-    struct Node* right;
-    
-    Node(int x){
-        data = x;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
         left = right = NULL;
     }
 };
- */
+*/
 
-// this is DFS approach
-// with printing only the first one
-vector<int> leftViewUtil(Node *root, int level, int *max_level, vector<int> &ans)
+// this is based on DFS
+bool checkBST(Node *root, int min, int max)
 {
-    // Base Case
-    if (root == NULL)
-        ans;
-
-    // If this is the first node of its level
-    if (*max_level < level)
+    if (!root)
     {
-        // cout << root->data << "\t";
-        ans.push_back(root->data);
-        *max_level = level;
+        return true;
     }
-
-    // Recur for left and right subtrees
-    leftViewUtil(root->left, level + 1, max_level, ans);
-    leftViewUtil(root->right, level + 1, max_level, ans);
+    if (root->data > min && root->data < max)
+    {
+        return (checkBST(root->left, min, root->data) && checkBST(root->right, root->data, max));
+    }
+    return false;
 }
 
-// A wrapper over leftViewUtil()
-vector<int> leftView(Node *root)
+// return true if the given tree is a BST, else return false
+bool isBST(Node *root)
 {
-    int max_level = 0;
-    vector<int> ans;
-    return leftViewUtil(root, 1, &max_level, ans);
+    // Your code here
+    // condition for BST
+    //1. All nodes on right subtree are greater than root
+    //2. All nodes on left subtree are lower than root
+    if (!root)
+    {
+        return true;
+    }
+    if (checkBST(root->left, 0, root->data) && checkBST(root->right, root->data, INT_MAX))
+    {
+        return true;
+    };
+    return false;
 }
 
+// { Driver Code Starts
+// } Driver Code Ends

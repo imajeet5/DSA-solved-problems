@@ -19,6 +19,7 @@ struct Node
     }
 };
 
+//DFS
 // using recursion
 void inorderTraversal(Node *root)
 {

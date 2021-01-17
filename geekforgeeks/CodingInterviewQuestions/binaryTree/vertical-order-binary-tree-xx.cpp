@@ -9,9 +9,6 @@ struct Node
     Node *left;
     Node *right;
 };
-
-vector<int> leftView(struct Node *root);
-
 // Utility function to create a new Tree Node
 Node *newNode(int val)
 {
@@ -22,6 +19,8 @@ Node *newNode(int val)
 
     return temp;
 }
+
+vector<int> verticalOrder(Node *root);
 
 // Function to Build Tree
 Node *buildTree(string str)
@@ -38,9 +37,6 @@ Node *buildTree(string str)
     for (string str; iss >> str;)
         ip.push_back(str);
 
-    // for(string i:ip)
-    //     cout<<i<<" ";
-    // cout<<endl;
     // Create the root of the tree
     Node *root = newNode(stoi(ip[0]));
 
@@ -93,18 +89,34 @@ Node *buildTree(string str)
     return root;
 }
 
+// Function for Inorder Traversal
+void printInorder(Node *root)
+{
+    if (!root)
+        return;
+
+    printInorder(root->left);
+    cout << root->data << " ";
+    printInorder(root->right);
+}
+
 int main()
 {
     int t;
-    scanf("%d ", &t);
+    string tc;
+    getline(cin, tc);
+    t = stoi(tc);
     while (t--)
     {
         string s;
         getline(cin, s);
+        // string c;
+        // getline(cin,c);
         Node *root = buildTree(s);
-        vector<int> vec = leftView(root);
-        for (int x : vec)
-            cout << x << " ";
+
+        vector<int> res = verticalOrder(root);
+        for (int i : res)
+            cout << i << " ";
         cout << endl;
     }
     return 0;
@@ -112,8 +124,8 @@ int main()
 
 // } Driver Code Ends
 
-/* A binary tree node
-
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child 
 struct Node
 {
     int data;
@@ -126,33 +138,43 @@ struct Node
     }
 };
  */
+map<int, map<int, set<int>>> coord_val;
 
-// this is DFS approach
-// with printing only the first one
-vector<int> leftViewUtil(Node *root, int level, int *max_level, vector<int> &ans)
+void traverseDFS(Node *root, int x, int y)
 {
-    // Base Case
     if (root == NULL)
-        ans;
-
-    // If this is the first node of its level
-    if (*max_level < level)
     {
-        // cout << root->data << "\t";
-        ans.push_back(root->data);
-        *max_level = level;
+        return;
+    }
+    // coord_val is map of map. So for every x we can have multiple key-value pair
+    coord_val[x][y].insert(root->data);
+    // first go to left
+    traverseDFS(root->left, x - 1, y + 1);
+    // then go to right
+    traverseDFS(root->right, x + 1, y + 1);
+}
+
+// root: root node of the tree
+vector<int> verticalOrder(Node *root)
+{
+    vector<int> ans;
+    if (root == NULL)
+    {
+        return ans;
+    }
+    traverseDFS(root, 0, 0);
+    //Your code here
+
+    for (auto x : coord_val)
+    {
+        for (auto y : x.second)
+        {
+            for (auto value : y.second)
+            {
+                ans.push_back(value);
+            }
+        }
     }
 
-    // Recur for left and right subtrees
-    leftViewUtil(root->left, level + 1, max_level, ans);
-    leftViewUtil(root->right, level + 1, max_level, ans);
+    return ans;
 }
-
-// A wrapper over leftViewUtil()
-vector<int> leftView(Node *root)
-{
-    int max_level = 0;
-    vector<int> ans;
-    return leftViewUtil(root, 1, &max_level, ans);
-}
-

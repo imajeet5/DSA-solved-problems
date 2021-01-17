@@ -1,6 +1,7 @@
 // { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
+#define MAX_HEIGHT 100000
 
 // Tree Node
 struct Node
@@ -9,8 +10,6 @@ struct Node
     Node *left;
     Node *right;
 };
-
-vector<int> leftView(struct Node *root);
 
 // Utility function to create a new Tree Node
 Node *newNode(int val)
@@ -22,6 +21,8 @@ Node *newNode(int val)
 
     return temp;
 }
+
+vector<int> bottomView(Node *root);
 
 // Function to Build Tree
 Node *buildTree(string str)
@@ -38,9 +39,6 @@ Node *buildTree(string str)
     for (string str; iss >> str;)
         ip.push_back(str);
 
-    // for(string i:ip)
-    //     cout<<i<<" ";
-    // cout<<endl;
     // Create the root of the tree
     Node *root = newNode(stoi(ip[0]));
 
@@ -96,15 +94,18 @@ Node *buildTree(string str)
 int main()
 {
     int t;
-    scanf("%d ", &t);
+    string tc;
+    getline(cin, tc);
+    t = stoi(tc);
     while (t--)
     {
-        string s;
+        string s, ch;
         getline(cin, s);
         Node *root = buildTree(s);
-        vector<int> vec = leftView(root);
-        for (int x : vec)
-            cout << x << " ";
+
+        vector<int> res = bottomView(root);
+        for (int i : res)
+            cout << i << " ";
         cout << endl;
     }
     return 0;
@@ -112,47 +113,69 @@ int main()
 
 // } Driver Code Ends
 
-/* A binary tree node
+/* Tree node class
 
 struct Node
 {
-    int data;
-    struct Node* left;
-    struct Node* right;
-    
-    Node(int x){
-        data = x;
+    int data; //data of the node
+    Node *left, *right; //left and right references
+
+    // Constructor of tree node
+    Node(int key)
+    {
+        data = key;
         left = right = NULL;
     }
-};
- */
+}; */
 
-// this is DFS approach
-// with printing only the first one
-vector<int> leftViewUtil(Node *root, int level, int *max_level, vector<int> &ans)
+map<Node *, int> node_dist;
+
+// Method that returns the bottom view.
+void travel(Node *root, int pos)
 {
-    // Base Case
     if (root == NULL)
-        ans;
-
-    // If this is the first node of its level
-    if (*max_level < level)
     {
-        // cout << root->data << "\t";
-        ans.push_back(root->data);
-        *max_level = level;
+        return;
+    }
+    node_dist[root] = pos;
+    travel(root->left, pos - 1);
+    travel(root->right, pos + 1);
+}
+
+vector<int> bottomView(Node *root)
+{
+    // Your Code Here
+    vector<int> ans;
+    if (root == NULL)
+    {
+        return ans;
+    }
+    travel(root, 0);
+    // this will be map of distance and value of the node
+    map<int, int> visited;
+    // we will do BFS
+    // update the visited value with the lastest value to get the bottom view
+    // if we want the top view we will only take the first occurrence
+    queue<Node *> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        Node *curr = q.front();
+        q.pop();
+        visited[node_dist.at(curr)] = curr->data;
+        if (curr->left)
+        {
+            q.push(curr->left);
+        }
+        if (curr->right)
+        {
+            q.push(curr->right);
+        }
     }
 
-    // Recur for left and right subtrees
-    leftViewUtil(root->left, level + 1, max_level, ans);
-    leftViewUtil(root->right, level + 1, max_level, ans);
+    for (auto val : visited)
+    {
+        ans.push_back(val.second);
+    }
+    return ans;
 }
-
-// A wrapper over leftViewUtil()
-vector<int> leftView(Node *root)
-{
-    int max_level = 0;
-    vector<int> ans;
-    return leftViewUtil(root, 1, &max_level, ans);
-}
-

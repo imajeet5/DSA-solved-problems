@@ -57,18 +57,18 @@ class Node {
 };
 
 */
-    map<Node *, int> dist;
+    map<Node *, int> distance;
 
     void travel(Node *root, int n)
     {
         if (root->left != NULL)
         {
-            dist[root->left] = n - 1;
+            distance[root->left] = n - 1;
             travel(root->left, n - 1);
         }
         if (root->right != NULL)
         {
-            dist[root->right] = n + 1;
+            distance[root->right] = n + 1;
             travel(root->right, n + 1);
         }
         return;
@@ -80,19 +80,21 @@ class Node {
         {
             return;
         }
-        dist[root] = 0;
+        distance[root] = 0;
+        // calculate every node distance from root
         travel(root, 0);
         map<int, int> view;
         queue<Node *> q;
         view[0] = root->data;
         q.push(root);
+        // we will do level order traversal BFS
         while (!q.empty())
         {
             Node *curr = q.front();
             q.pop();
             if (curr->left != NULL)
             {
-                int k = dist[curr->left];
+                int k = distance[curr->left];
                 // we will check if we have seen this value before or not
                 // if we don't have then we will update the data
                 // if we want bottom view of the tree we will delete this if condition
@@ -102,7 +104,7 @@ class Node {
             }
             if (curr->right != NULL)
             {
-                int k = dist[curr->right];
+                int k = distance[curr->right];
                 if (view.count(k) == 0)
                     view[k] = curr->right->data;
                 q.push(curr->right);

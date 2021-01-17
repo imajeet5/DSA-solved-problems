@@ -64,7 +64,7 @@ void levelOrderSameLine(Node *root)
             q.push(current->right);
     }
 }
-
+// BFS
 void levelOrderNextLine(Node *root)
 {
     queue<Node *> q;
