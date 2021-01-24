@@ -5,16 +5,18 @@ using namespace std;
 struct Node
 {
     int data;
-    Node *left;
-    Node *right;
-
-    Node(int val)
-    {
-        data = val;
-        left = right = NULL;
-    }
+    struct Node *left;
+    struct Node *right;
 };
-// Function to Build Tree
+Node *newNode(int val)
+{
+    Node *temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+
+    return temp;
+}
 Node *buildTree(string str)
 {
     // Corner Case
@@ -30,7 +32,7 @@ Node *buildTree(string str)
         ip.push_back(str);
 
     // Create the root of the tree
-    Node *root = new Node(stoi(ip[0]));
+    Node *root = newNode(stoi(ip[0]));
 
     // Push the root to the queue
     queue<Node *> queue;
@@ -53,7 +55,7 @@ Node *buildTree(string str)
         {
 
             // Create the left child for the current node
-            currNode->left = new Node(stoi(currVal));
+            currNode->left = newNode(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->left);
@@ -70,7 +72,7 @@ Node *buildTree(string str)
         {
 
             // Create the right child for the current node
-            currNode->right = new Node(stoi(currVal));
+            currNode->right = newNode(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->right);
@@ -80,72 +82,54 @@ Node *buildTree(string str)
 
     return root;
 }
-
-Node *LCA(Node *root, int l, int h);
+int countLeaves(struct Node *root);
 
 int main()
 {
-
     int t;
     scanf("%d ", &t);
     while (t--)
     {
         string s;
-        int l, h;
         getline(cin, s);
-        scanf("%d ", &l);
-        scanf("%d ", &h);
         Node *root = buildTree(s);
-        cout << LCA(root, l, h)->data << endl;
+        cout << countLeaves(root) << endl;
     }
-    return 1;
-} // } Driver Code Ends
+    return 0;
+}
+// } Driver Code Ends
 
-/*The structure of a BST Node is as follows:
+//User function Template for C++
 
-struct Node {
-    int data;
-    Node *left;
-    Node *right;
-
-    Node(int val) {
-        data = val;
-        left = right = NULL;
-    }
-};
-*/
-
-// Returns the LCA of the nodes with values n1 and n2
-// in the BST rooted at 'root'
-Node *LCA(Node *root, int n1, int n2)
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child  
+struct Node
 {
+    int data;
+    Node* left;
+    Node* right;
+}; */
 
-    // case 1: base case if root == NULL
+/* Should return count of leaves. For example, return
+    value should be 2 for following tree.
+         10
+      /      \ 
+   20       30 */
+int countLeaves(Node *root)
+{
+    // Your code here
     if (root == NULL)
     {
-        return NULL;
+        return 0;
     }
 
-    // case 2: root->data is equal to the number, then we have found the number and we return that node
-    // act as base case
-
-    if (root->data == n1 || root->data == n2)
+    if (root->left == NULL && root->right == NULL)
     {
-        return root;
+        return 1;
     }
 
-    // if node is not found we search it DFS
-    Node *left = LCA(root->left, n1, n2);
-    Node *right = LCA(root->right, n1, n2);
+    int left = countLeaves(root->left);
+    int right = countLeaves(root->right);
 
-    // if for the current node number are present in left and the right subtree
-    // then current node is the LCA
-    if (left && right)
-    {
-        return root;
-    }
-    // here we assume that given number are present in the Binary Tree
-    // no here one of either right or left is null
-    // if left is not null mean right is null, then
-    return left != NULL ? left : right;
+    return (left + right);
 }

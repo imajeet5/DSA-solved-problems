@@ -2,19 +2,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/* A binary tree node has data, pointer to left child
+   and a pointer to right child */
 struct Node
 {
     int data;
-    Node *left;
-    Node *right;
-
-    Node(int val)
-    {
-        data = val;
-        left = right = NULL;
-    }
+    struct Node *left;
+    struct Node *right;
 };
-// Function to Build Tree
+Node *newNode(int val)
+{
+    Node *temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+    return temp;
+}
 Node *buildTree(string str)
 {
     // Corner Case
@@ -30,7 +33,7 @@ Node *buildTree(string str)
         ip.push_back(str);
 
     // Create the root of the tree
-    Node *root = new Node(stoi(ip[0]));
+    Node *root = newNode(stoi(ip[0]));
 
     // Push the root to the queue
     queue<Node *> queue;
@@ -53,7 +56,7 @@ Node *buildTree(string str)
         {
 
             // Create the left child for the current node
-            currNode->left = new Node(stoi(currVal));
+            currNode->left = newNode(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->left);
@@ -70,7 +73,7 @@ Node *buildTree(string str)
         {
 
             // Create the right child for the current node
-            currNode->right = new Node(stoi(currVal));
+            currNode->right = newNode(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->right);
@@ -80,72 +83,66 @@ Node *buildTree(string str)
 
     return root;
 }
+/* Function to get diameter of a binary tree */
+int diameter(struct Node *tree);
 
-Node *LCA(Node *root, int l, int h);
-
+/* Driver program to test size function*/
 int main()
 {
-
     int t;
-    scanf("%d ", &t);
+    scanf("%d\n", &t);
     while (t--)
     {
         string s;
-        int l, h;
         getline(cin, s);
-        scanf("%d ", &l);
-        scanf("%d ", &h);
         Node *root = buildTree(s);
-        cout << LCA(root, l, h)->data << endl;
+        cout << diameter(root) << endl;
     }
-    return 1;
-} // } Driver Code Ends
+    return 0;
+}
+// } Driver Code Ends
 
-/*The structure of a BST Node is as follows:
+/* Tree node structure  used in the program
 
-struct Node {
+struct Node
+{
     int data;
-    Node *left;
-    Node *right;
+    struct Node* left;
+    struct Node* right;
 
-    Node(int val) {
-        data = val;
+    Node(int x){
+        data = x;
         left = right = NULL;
     }
-};
-*/
+}; */
 
-// Returns the LCA of the nodes with values n1 and n2
-// in the BST rooted at 'root'
-Node *LCA(Node *root, int n1, int n2)
+/* Computes the diameter of binary tree with given root.  */
+
+// instead of returning the height of the tree, we will also return the max diameter corresponding to that node
+pair<int, int> getHeightDiameter(Node *root)
 {
-
-    // case 1: base case if root == NULL
     if (root == NULL)
     {
-        return NULL;
+        return {0, 0};
     }
 
-    // case 2: root->data is equal to the number, then we have found the number and we return that node
-    // act as base case
+    auto lhd = getHeightDiameter(root->left);
+    auto rhd = getHeightDiameter(root->right);
+    int lh = lhd.first;
+    int rh = rhd.first;
 
-    if (root->data == n1 || root->data == n2)
-    {
-        return root;
-    }
+    int height = 1 + max(lh, rh);
 
-    // if node is not found we search it DFS
-    Node *left = LCA(root->left, n1, n2);
-    Node *right = LCA(root->right, n1, n2);
+    int ld = lhd.second;
+    int rd = rhd.second;
 
-    // if for the current node number are present in left and the right subtree
-    // then current node is the LCA
-    if (left && right)
-    {
-        return root;
-    }
-    // here we assume that given number are present in the Binary Tree
-    // no here one of either right or left is null
-    // if left is not null mean right is null, then
-    return left != NULL ? left : right;
+    int diameter = max(lh + rh, max(ld, rd));
+
+    return {height, diameter};
+}
+
+int diameter(Node *root)
+{
+    auto p = getHeightDiameter(root);
+    return p.second;
 }

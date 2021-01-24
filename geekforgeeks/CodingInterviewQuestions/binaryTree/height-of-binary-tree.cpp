@@ -1,12 +1,14 @@
 // { Driver Code Starts
+//Initial template for C++
+
 #include <bits/stdc++.h>
 using namespace std;
 
 struct Node
 {
     int data;
-    Node *left;
-    Node *right;
+    struct Node *left;
+    struct Node *right;
 
     Node(int val)
     {
@@ -14,6 +16,7 @@ struct Node
         left = right = NULL;
     }
 };
+
 // Function to Build Tree
 Node *buildTree(string str)
 {
@@ -52,7 +55,7 @@ Node *buildTree(string str)
         if (currVal != "N")
         {
 
-            // Create the left child for the current node
+            // Create the left child for the current Node
             currNode->left = new Node(stoi(currVal));
 
             // Push it to the queue
@@ -81,71 +84,54 @@ Node *buildTree(string str)
     return root;
 }
 
-Node *LCA(Node *root, int l, int h);
+// } Driver Code Ends
 
-int main()
+//User function template for C++
+
+/*
+struct Node
 {
-
-    int t;
-    scanf("%d ", &t);
-    while (t--)
-    {
-        string s;
-        int l, h;
-        getline(cin, s);
-        scanf("%d ", &l);
-        scanf("%d ", &h);
-        Node *root = buildTree(s);
-        cout << LCA(root, l, h)->data << endl;
-    }
-    return 1;
-} // } Driver Code Ends
-
-/*The structure of a BST Node is as follows:
-
-struct Node {
     int data;
-    Node *left;
-    Node *right;
-
-    Node(int val) {
-        data = val;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
         left = right = NULL;
     }
 };
 */
-
-// Returns the LCA of the nodes with values n1 and n2
-// in the BST rooted at 'root'
-Node *LCA(Node *root, int n1, int n2)
+class Solution
 {
-
-    // case 1: base case if root == NULL
-    if (root == NULL)
+public:
+    int height(struct Node *node)
     {
-        return NULL;
+        // code here
+
+        if (node == NULL)
+        {
+            return 0;
+        }
+
+        // we find the left height and the right height and add 1 for the current node
+        int leftHeight = height(node->left);
+        int rightHeight = height(node->right);
+        return max(leftHeight, rightHeight) + 1;
     }
+};
 
-    // case 2: root->data is equal to the number, then we have found the number and we return that node
-    // act as base case
-
-    if (root->data == n1 || root->data == n2)
+// { Driver Code Starts.
+int main()
+{
+    int t;
+    scanf("%d ", &t);
+    while (t--)
     {
-        return root;
+        string treeString;
+        getline(cin, treeString);
+        Node *root = buildTree(treeString);
+        Solution ob;
+        cout << ob.height(root) << endl;
     }
-
-    // if node is not found we search it DFS
-    Node *left = LCA(root->left, n1, n2);
-    Node *right = LCA(root->right, n1, n2);
-
-    // if for the current node number are present in left and the right subtree
-    // then current node is the LCA
-    if (left && right)
-    {
-        return root;
-    }
-    // here we assume that given number are present in the Binary Tree
-    // no here one of either right or left is null
-    // if left is not null mean right is null, then
-    return left != NULL ? left : right;
-}
+    return 0;
+} // } Driver Code Ends

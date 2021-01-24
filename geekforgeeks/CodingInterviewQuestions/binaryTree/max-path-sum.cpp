@@ -1,7 +1,9 @@
 // { Driver Code Starts
 #include <bits/stdc++.h>
+
 using namespace std;
 
+// Tree Node
 struct Node
 {
     int data;
@@ -14,6 +16,7 @@ struct Node
         left = right = NULL;
     }
 };
+
 // Function to Build Tree
 Node *buildTree(string str)
 {
@@ -45,14 +48,14 @@ Node *buildTree(string str)
         Node *currNode = queue.front();
         queue.pop();
 
-        // Get the current node's value from the string
+        // Get the current Node's value from the string
         string currVal = ip[i];
 
         // If the left child is not null
         if (currVal != "N")
         {
 
-            // Create the left child for the current node
+            // Create the left child for the current Node
             currNode->left = new Node(stoi(currVal));
 
             // Push it to the queue
@@ -69,7 +72,7 @@ Node *buildTree(string str)
         if (currVal != "N")
         {
 
-            // Create the right child for the current node
+            // Create the right child for the current Node
             currNode->right = new Node(stoi(currVal));
 
             // Push it to the queue
@@ -81,71 +84,56 @@ Node *buildTree(string str)
     return root;
 }
 
-Node *LCA(Node *root, int l, int h);
-
 int main()
 {
-
-    int t;
-    scanf("%d ", &t);
-    while (t--)
+    int tc;
+    scanf("%d ", &tc);
+    while (tc--)
     {
-        string s;
-        int l, h;
-        getline(cin, s);
-        scanf("%d ", &l);
-        scanf("%d ", &h);
-        Node *root = buildTree(s);
-        cout << LCA(root, l, h)->data << endl;
+        string treeString;
+        getline(cin, treeString);
+        Node *root = buildTree(treeString);
+        cout << maxPathSum(root) << "\n";
     }
-    return 1;
+    return 0;
 } // } Driver Code Ends
 
-/*The structure of a BST Node is as follows:
-
-struct Node {
+/*
+struct Node
+{
     int data;
-    Node *left;
-    Node *right;
-
-    Node(int val) {
-        data = val;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
         left = right = NULL;
     }
 };
 */
 
-// Returns the LCA of the nodes with values n1 and n2
-// in the BST rooted at 'root'
-Node *LCA(Node *root, int n1, int n2)
+int maxPathSumUtil(Node *root, int &res)
 {
-
-    // case 1: base case if root == NULL
+    // Base cases
     if (root == NULL)
-    {
-        return NULL;
-    }
+        return 0;
+    // if (!root->left && !root->right) return root->data;
 
-    // case 2: root->data is equal to the number, then we have found the number and we return that node
-    // act as base case
+    int ls = maxPathSumUtil(root->left, res);
+    int rs = maxPathSumUtil(root->right, res);
 
-    if (root->data == n1 || root->data == n2)
-    {
-        return root;
-    }
+    // If both left and right children exist
 
-    // if node is not found we search it DFS
-    Node *left = LCA(root->left, n1, n2);
-    Node *right = LCA(root->right, n1, n2);
+    //store the result of a path
+    res = max(res, ls + rs + root->data);
 
-    // if for the current node number are present in left and the right subtree
-    // then current node is the LCA
-    if (left && right)
-    {
-        return root;
-    }
-    // here we assume that given number are present in the Binary Tree
-    // no here one of either right or left is null
-    // if left is not null mean right is null, then
-    return left != NULL ? left : right;
+   // if the sum is negative we will return 0 instead as it will max the sum smaller and we ignore it
+    return max(max(ls, rs) + root->data, 0);
+}
+
+int maxPathSum(Node *root)
+{
+    int res = INT_MIN;
+    maxPathSumUtil(root, res);
+    return res;
 }

@@ -1,3 +1,6 @@
+//https://practice.geeksforgeeks.org/problems/check-for-balanced-tree/1
+// A tree is height balanced if difference between heights of left and right subtrees is not more than one for all nodes of tree.
+
 // { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
@@ -5,15 +8,19 @@ using namespace std;
 struct Node
 {
     int data;
-    Node *left;
-    Node *right;
-
-    Node(int val)
-    {
-        data = val;
-        left = right = NULL;
-    }
+    struct Node *left;
+    struct Node *right;
 };
+// Utility function to create a new Tree Node
+Node *newNode(int val)
+{
+    Node *temp = new Node;
+    temp->data = val;
+    temp->left = NULL;
+    temp->right = NULL;
+
+    return temp;
+}
 // Function to Build Tree
 Node *buildTree(string str)
 {
@@ -30,7 +37,7 @@ Node *buildTree(string str)
         ip.push_back(str);
 
     // Create the root of the tree
-    Node *root = new Node(stoi(ip[0]));
+    Node *root = newNode(stoi(ip[0]));
 
     // Push the root to the queue
     queue<Node *> queue;
@@ -53,7 +60,7 @@ Node *buildTree(string str)
         {
 
             // Create the left child for the current node
-            currNode->left = new Node(stoi(currVal));
+            currNode->left = newNode(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->left);
@@ -70,7 +77,7 @@ Node *buildTree(string str)
         {
 
             // Create the right child for the current node
-            currNode->right = new Node(stoi(currVal));
+            currNode->right = newNode(stoi(currVal));
 
             // Push it to the queue
             queue.push(currNode->right);
@@ -81,7 +88,7 @@ Node *buildTree(string str)
     return root;
 }
 
-Node *LCA(Node *root, int l, int h);
+bool isBalanced(Node *root);
 
 int main()
 {
@@ -91,61 +98,48 @@ int main()
     while (t--)
     {
         string s;
-        int l, h;
         getline(cin, s);
-        scanf("%d ", &l);
-        scanf("%d ", &h);
         Node *root = buildTree(s);
-        cout << LCA(root, l, h)->data << endl;
+        cout << isBalanced(root) << endl;
     }
     return 1;
 } // } Driver Code Ends
 
-/*The structure of a BST Node is as follows:
+/* A binary tree node structure
 
-struct Node {
+struct Node
+{
     int data;
-    Node *left;
-    Node *right;
-
-    Node(int val) {
-        data = val;
+    struct Node* left;
+    struct Node* right;
+    
+    Node(int x){
+        data = x;
         left = right = NULL;
     }
 };
-*/
+ */
 
-// Returns the LCA of the nodes with values n1 and n2
-// in the BST rooted at 'root'
-Node *LCA(Node *root, int n1, int n2)
+// This function should return tree if passed  tree
+// is balanced, else false.
+
+pair<int, bool> checkBalanceHeight(Node *root)
 {
-
-    // case 1: base case if root == NULL
     if (root == NULL)
     {
-        return NULL;
+        return {0, true};
     }
 
-    // case 2: root->data is equal to the number, then we have found the number and we return that node
-    // act as base case
+    auto ls = checkBalanceHeight(root->left);
+    auto rs = checkBalanceHeight(root->right);
 
-    if (root->data == n1 || root->data == n2)
-    {
-        return root;
-    }
+    int height = max(ls.first, rs.first) + 1;
+    // if the current tree is balanced and it's right and left side tree is balance
+    int balanced = (abs(ls.first - rs.first) <= 1) && ls.second && rs.second;
+    return {height, balanced};
+}
 
-    // if node is not found we search it DFS
-    Node *left = LCA(root->left, n1, n2);
-    Node *right = LCA(root->right, n1, n2);
-
-    // if for the current node number are present in left and the right subtree
-    // then current node is the LCA
-    if (left && right)
-    {
-        return root;
-    }
-    // here we assume that given number are present in the Binary Tree
-    // no here one of either right or left is null
-    // if left is not null mean right is null, then
-    return left != NULL ? left : right;
+bool isBalanced(Node *root)
+{
+    return checkBalanceHeight(root).second;
 }

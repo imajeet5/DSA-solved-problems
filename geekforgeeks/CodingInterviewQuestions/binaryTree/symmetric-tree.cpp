@@ -1,7 +1,6 @@
 // { Driver Code Starts
 #include <bits/stdc++.h>
 using namespace std;
-
 struct Node
 {
     int data;
@@ -14,7 +13,6 @@ struct Node
         left = right = NULL;
     }
 };
-// Function to Build Tree
 Node *buildTree(string str)
 {
     // Corner Case
@@ -80,29 +78,28 @@ Node *buildTree(string str)
 
     return root;
 }
-
-Node *LCA(Node *root, int l, int h);
+bool isSymmetric(struct Node *root);
 
 int main()
 {
-
     int t;
     scanf("%d ", &t);
     while (t--)
     {
         string s;
-        int l, h;
         getline(cin, s);
-        scanf("%d ", &l);
-        scanf("%d ", &h);
         Node *root = buildTree(s);
-        cout << LCA(root, l, h)->data << endl;
+        if (isSymmetric(root))
+            cout << "True" << endl;
+        else
+            cout << "False" << endl;
     }
-    return 1;
-} // } Driver Code Ends
+    return 0;
+}
+// } Driver Code Ends
 
-/*The structure of a BST Node is as follows:
-
+/*
+Structure of the node of the tree is as
 struct Node {
     int data;
     Node *left;
@@ -115,37 +112,30 @@ struct Node {
 };
 */
 
-// Returns the LCA of the nodes with values n1 and n2
-// in the BST rooted at 'root'
-Node *LCA(Node *root, int n1, int n2)
+bool checkSymmetric(Node *left, Node *right)
 {
 
-    // case 1: base case if root == NULL
+    if (left == NULL || right == NULL)
+    {
+        // will only true (symmetric) if both are NULL
+        return left == right;
+    }
+    // if both are not null we check if the data is same for them
+    if (left->data != right->data)
+    {
+        return false;
+    }
+    return checkSymmetric(left->left, right->right) && checkSymmetric(left->right, right->left);
+}
+
+// return true/false denoting whether the tree is Symmetric or not
+bool isSymmetric(struct Node *root)
+{
+    // Code here
     if (root == NULL)
     {
-        return NULL;
+        return true;
     }
 
-    // case 2: root->data is equal to the number, then we have found the number and we return that node
-    // act as base case
-
-    if (root->data == n1 || root->data == n2)
-    {
-        return root;
-    }
-
-    // if node is not found we search it DFS
-    Node *left = LCA(root->left, n1, n2);
-    Node *right = LCA(root->right, n1, n2);
-
-    // if for the current node number are present in left and the right subtree
-    // then current node is the LCA
-    if (left && right)
-    {
-        return root;
-    }
-    // here we assume that given number are present in the Binary Tree
-    // no here one of either right or left is null
-    // if left is not null mean right is null, then
-    return left != NULL ? left : right;
+    return checkSymmetric(root->left, root->right);
 }
