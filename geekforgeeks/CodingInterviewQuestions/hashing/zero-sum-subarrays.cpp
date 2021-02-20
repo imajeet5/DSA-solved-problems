@@ -24,31 +24,28 @@ int main()
 
 int maxLen(int A[], int n)
 {
-    // Your code here
-    unordered_map<int, int> mpp;
-
-    int max_len = 0;
+    int count = 0;
+    unordered_map<int, int> mp;
+    int i = -1;
     int sum = 0;
+    mp[sum]++;
     for (int i = 0; i < n; i++)
     {
         sum += A[i];
-        if (sum == 0)
+        // if already exists
+        if (mp[sum] != 0)
         {
-            max_len = i + 1;
+            count += mp[sum];
         }
-        else
-        {
-            // if the sum is already exist then
-            if (mpp.find(sum) != mpp.end())
-            {
-                max_len = max(max_len, i - mpp[sum]);
-            }
-            else
-            {
-                mpp[sum] = i;
-            }
-        }
+        mp[sum]++;
     }
 
-    return max_len;
+    return count;
 }
+
+
+/* 
+1
+6
+0 0 5 5 0 0  
+*/
