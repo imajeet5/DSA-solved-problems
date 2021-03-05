@@ -26,7 +26,7 @@ public:
             // remove that element from the set
             s.erase(s.begin());
 
-            vector<vector<int>> neighbors = adj[S];
+            vector<vector<int>> neighbors = adj[p_val];
 
             for (int i = 0; i < neighbors.size(); i++)
             {
