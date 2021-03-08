@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class ParkingSystem
+{
+    vector<int> count;
+    public:
+    ParkingSystem(int big, int medium, int small)
+    {
+        count = {big, medium, small};
+    }
+
+    bool addCar(int carType)
+    {
+        // this will first compare with 0 then do the decrement
+        return count[carType - 1]-- > 0;
+    }
+};
+
+/**
+ * Your ParkingSystem object will be instantiated and called as such:
+ * ParkingSystem* obj = new ParkingSystem(big, medium, small);
+ * bool param_1 = obj->addCar(carType);
+ */
