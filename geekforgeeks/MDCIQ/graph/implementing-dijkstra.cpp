@@ -30,7 +30,7 @@ public:
 
             for (int i = 0; i < neighbors.size(); i++)
             {
-                auto curr = neighbors[i];
+                auto curr = neighbors[i];  
                 int v = curr[0];
                 int weight = curr[1];
 
