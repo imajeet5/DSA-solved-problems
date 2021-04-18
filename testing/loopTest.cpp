@@ -17,11 +17,16 @@ int main(int argc, char const *argv[])
     // {
     //     cout << "Value of i is " << i << endl;
     // }
-    int i = 2;
-    for (int j = i; j < 5; j++)
+    // int i = 2;
+    // for (int j = i; j < 5; j++)
+    // {
+    //     cout << j << endl;
+    //     i = j;
+    // }
+
+    for (int i = 0; i < 0; i++)
     {
-        cout << j << endl;
-        i = j;
+        cout << "Loop works" << endl;
     }
 
     return 0;

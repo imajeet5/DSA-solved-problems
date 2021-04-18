@@ -16,7 +16,7 @@ public:
         int totalMax = 0;
         for (int i = 0; i < n; i++)
         {
-            int localMax = 0;
+            int localMax = 0;  
 
             for (int j = 0; j < i; j++)
             {
