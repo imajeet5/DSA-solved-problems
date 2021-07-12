@@ -24,7 +24,7 @@ int main(int argc, char const *argv[])
     //     i = j;
     // }
 
-    for (int i = 0; i < 0; i++)
+    for (int i = 1; i < 1; i++)
     {
         cout << "Loop works" << endl;
     }
