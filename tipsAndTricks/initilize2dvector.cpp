@@ -14,7 +14,7 @@ int main()
 	elements each of value "0".
 	Here these elements are vectors.
 	*/
-    vector<vector<int>> vec(n, vector<int>(m, 0));
+    vector<vector<int>> vec(n, vector<int>(m, -1));
 
     for (int i = 0; i < n; i++)
     {
