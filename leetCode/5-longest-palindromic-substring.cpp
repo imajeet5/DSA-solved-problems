@@ -57,10 +57,39 @@ public:
     }
 };
 
+class Solution2
+{
+public:
+    void getAllSubstring(string s, vector<string> &substrings, int i, string current)
+    {
+
+        // first we push the current substring in substrings array
+        substrings.push_back(current);
+        // now for every character of string we will determine the substring
+        for (int j = i; j < s.size(); j++)
+        {
+            current += s[j];
+            getAllSubstring(s, substrings, j + 1, current);
+            current.pop_back();
+        }
+    };
+
+    string longestPalindrome(string s)
+    {
+        vector<string> substrings;
+        string current = "";
+        getAllSubstring(s, substrings, 0, current);
+        
+        
+        
+        return "hello";
+    }
+};
+
 int main(int argc, char const *argv[])
 {
-    Solution sol;
-    auto ans = sol.longestPalindrome("a");
+    Solution2 sol;
+    auto ans = sol.longestPalindrome("abc");
     cout << ans << endl;
 
     return 0;

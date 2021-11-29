@@ -2,7 +2,7 @@
 
 using namespace std;
 
-class Solution
+class Solution1
 {
 public:
     void getSubsets(int currentIndex, vector<vector<int>> &subsets, vector<int> current, vector<int> &nums)
@@ -36,27 +36,35 @@ public:
 class Solution2
 {
 public:
-    class Solution
+    vector<vector<int>> subsets(vector<int> &nums)
     {
-    public:
-        vector<vector<int>> subsets(vector<int> &nums)
-        {
-            vector<vector<int>> subs;
-            vector<int> sub;
-            getSubsets(nums, 0, sub, subs);
-            return subs;
-        }
+        vector<vector<int>> subs;
+        vector<int> sub;
+        getSubsets(nums, 0, sub, subs);
+        return subs;
+    }
 
-    private:
-        void getSubsets(vector<int> &nums, int i, vector<int> &sub, vector<vector<int>> &subs)
+private:
+    void getSubsets(vector<int> &nums, int i, vector<int> &sub, vector<vector<int>> &subs)
+    {
+        subs.push_back(sub);
+        for (int j = i; j < nums.size(); j++)
         {
-            subs.push_back(sub);
-            for (int j = i; j < nums.size(); j++)
-            {
-                sub.push_back(nums[j]);
-                getSubsets(nums, j + 1, sub, subs);
-                sub.pop_back();
-            }
+            sub.push_back(nums[j]);
+            getSubsets(nums, j + 1, sub, subs);
+            sub.pop_back();
         }
-    };
+    }
 };
+
+int main(int argc, char const *argv[])
+{
+    vector<int> nums = {1, 2, 3};
+    Solution2 obj;
+
+    vector<vector<int>> subsets = obj.subsets(nums);
+
+    cout << "Hello" << endl;
+
+    return 0;
+}
