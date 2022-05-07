@@ -10,7 +10,7 @@ int main()
     mpp['b'] = 2;
     mpp['c'] = 3;
     mpp.insert({'d', 4});
-    cout << mpp['c'];
+    cout << mpp.count('d');
 
     return 0;
 }
