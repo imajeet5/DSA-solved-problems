@@ -5,7 +5,7 @@ using namespace std;
 class Solution
 {
 public:
-    bool isPalindrome(string s, int begin, int end)
+    bool isPalindrome(int begin, int end, string s)
     {
         while (begin < end)
         {
@@ -13,47 +13,67 @@ public:
             {
                 return false;
             }
-            return true;
         }
 
-        return false;
+        return true;
     }
 
-    void getPalindromicPartition(int begin, vector<string> current, string s, vector<vector<string>> &result)
+    void getPalindromicPartitions(int begin, vector<string> path, string s, vector<vector<string>> &result)
     {
 
-        // base case
-        // begin reaches the end of the string
+        // the base case
+        // when the begin will reach the end of the string
         if (begin == s.size())
         {
-            // then we will push the current array in result
-            result.push_back(current);
+            result.push_back(path);
             return;
         }
 
         for (int i = begin; i < s.size(); i++)
         {
-            // we will check if the staring is palindrom from begin to i
-            if (isPalindrome(s, begin, i))
-            {
-                // if the current sub string is palindrom then only we will move forward with
-                // the recursion
-                // we will insert it the current array and check for all the partion in the remaining string
-                current.push_back(s.substr(begin, i + 1));
-                // now for the reaming part of the string we will check for all the palindrom
-                getPalindromicPartition(i + 1, current, s, result);
-                // at the time of backtracking we will remove the last element that has been added
-                // as it has already been part of the palindromic string
-                current.pop_back();
-            }
+            // in the loop we will check for all the palindrom
+            // from begin to ith palce
+            // whenever we get a plaindromic string we will add it to our
+            // recursive path and do the same thing on remaining of string
+
+                 path.push_back(s.substr(begin, i - begin + 1));
+               
+                getPalindromicPartitions(i + 1, path, s, result);
+              
+                path.pop_back();
+
+
+            // if (isPalindrome(begin, i, s))
+            // {
+            //     // we will add this string to our current path
+            //     // as substr take number of character from the
+            //     // beginning we take i-begin+1
+            //     path.push_back(s.substr(begin, i - begin + 1));
+            //     // now do the same stuff of rest of the string
+            //     getPalindromicPartitions(i + 1, path, s, result);
+            //     // now when we are backtracking, we will pop out the
+            //     //  current element as it's path has been explored
+            //     //  and we will try of get the next palindrom and explore
+            //     //  it's path
+            //     path.pop_back();
+            // }
         }
     }
 
     vector<vector<string>> partition(string s)
     {
         vector<vector<string>> result;
-        vector<string> current;
-        getPalindromicPartition(0, current, s, result);
+        vector<string> path;
+        getPalindromicPartitions(0, path, s, result);
         return result;
     }
 };
+
+int main(int argc, char const *argv[])
+{
+    Solution sol;
+    string str = "aba";
+    auto result = sol.partition(str);
+    cout << "Done" << endl;
+    return 0;
+}

@@ -21,9 +21,12 @@ public:
 
         for (int i = start; i < nums.size(); i++)
         {
-            
+
             if (i > start && nums[i] == nums[i - 1])
                 continue;
+
+            if (remaining - nums[i] < 0)
+                break;
             // we will first push the current element in array
             current.push_back(nums[i]);
             // we will go in the recursion and take the next element
